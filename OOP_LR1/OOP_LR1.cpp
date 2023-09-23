@@ -17,6 +17,10 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+//добавленные функции
+void Work1(HWND hWnd);
+void Work2(HWND hWnd);
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -131,6 +135,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // Разобрать выбор в меню:
             switch (wmId)
             {
+            case ID_ACTIONS_WORK1:
+                Work1(hWnd);
+                break;
+            case ID_ACTIONS_WORK2:
+                Work2(hWnd);
+                break;
+
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
@@ -177,4 +188,15 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
+}
+
+//Работа добавленных фунций
+void Work1(HWND hWnd)
+{
+
+}
+
+void Work2(HWND hWnd)
+{
+
 }
