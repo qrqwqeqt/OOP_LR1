@@ -3,6 +3,8 @@
 
 #include "framework.h"
 #include "OOP_LR1.h"
+#include "module1.h"
+
 
 #define MAX_LOADSTRING 100
 
@@ -18,8 +20,8 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 //добавленные функции
-void Work1(HWND hWnd);
-void Work2(HWND hWnd);
+void DoWork1(HWND hWnd);
+void DoWork2(HWND hWnd);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -136,10 +138,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             switch (wmId)
             {
             case ID_ACTIONS_WORK1:
-                Work1(hWnd);
+                DoWork1(hWnd);
                 break;
             case ID_ACTIONS_WORK2:
-                Work2(hWnd);
+                DoWork2(hWnd);
                 break;
 
             case IDM_ABOUT:
@@ -191,12 +193,12 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 //Работа добавленных фунций
-void Work1(HWND hWnd)
+void DoWork1(HWND hWnd)
 {
-
+    (FUNC_MOD1(hWnd, hInst) == 1);
 }
 
-void Work2(HWND hWnd)
+void DoWork2(HWND hWnd)
 {
 
 }

@@ -128,14 +128,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="module1.h" />
     <ClInclude Include="OOP_LR1.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="module1.cpp" />
     <ClCompile Include="OOP_LR1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="module1.rc" />
     <ResourceCompile Include="OOP_LR1.rc" />
   </ItemGroup>
   <ItemGroup>
