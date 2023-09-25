@@ -33,6 +33,12 @@
     <ClInclude Include="resource1.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="resource2.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="module2.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OOP_LR1.cpp">
@@ -41,12 +47,18 @@
     <ClCompile Include="module1.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="module2.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="OOP_LR1.rc">
       <Filter>Файлы ресурсов</Filter>
     </ResourceCompile>
     <ResourceCompile Include="module1.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="module2.rc">
       <Filter>Файлы ресурсов</Filter>
     </ResourceCompile>
   </ItemGroup>

@@ -2,7 +2,7 @@
 #include "module1.h"
 #include "resource1.h"
 
-// Определение глобальных переменных
+
 int g_bShowText = FALSE;
 wchar_t g_szTextToDisplay[256];
 
@@ -23,8 +23,8 @@ static INT_PTR CALLBACK Work1(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
         {
             EndDialog(hDlg, 1);
             GetDlgItemText(hDlg, IDC_EDIT1, g_szTextToDisplay, sizeof(g_szTextToDisplay) / sizeof(g_szTextToDisplay[0]));
-            g_bShowText = TRUE; // Устанавливаем флаг для отображения текста в главном окне
-            InvalidateRect(GetParent(hDlg), NULL, TRUE); // Перерисовываем главное окно
+            g_bShowText = TRUE; 
+            InvalidateRect(GetParent(hDlg), NULL, TRUE); 
             return (INT_PTR)TRUE;
         }
         if (LOWORD(wParam) == IDCANCEL)
@@ -45,8 +45,3 @@ extern int FUNC_MOD1(HWND hWnd, HINSTANCE hi)
 	return DialogBox(hi, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, Work1);
 }
 
-//int OutText_MOD1(HWND hWnd, HWND hDlg) 
-//{
-//
-//    return 0;
-//}

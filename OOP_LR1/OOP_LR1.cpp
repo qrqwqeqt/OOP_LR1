@@ -4,9 +4,12 @@
 #include "framework.h"
 #include "OOP_LR1.h"
 #include "module1.h"
+#include "module2.h"
 
 
+RECT rect;
 #define MAX_LOADSTRING 100
+
 
 
 // Глобальные переменные:
@@ -23,6 +26,7 @@ INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 //добавленные функции
 void DoWork1(HWND hWnd);
 void DoWork2(HWND hWnd);
+void ClearMainWindow(HWND hWnd);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -160,9 +164,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
+            HBRUSH hBrush = CreateSolidBrush(RGB(255, 255, 255));
             if (g_bShowText) {
+                FillRect(hdc, &rect, hBrush);
                 TextOut(hdc, 10, 10, g_szTextToDisplay, lstrlen(g_szTextToDisplay));
-                g_bShowText = FALSE; // Сбрасываем флаг после отображения текста
+                g_bShowText = FALSE;
+                FillRect(hdc, &rect, hBrush);
+                TextOut(hdc, 10, 40, g_selectedValue, lstrlen(g_selectedValue));
+                g_bShowText = FALSE;
+
             }
 
             EndPaint(hWnd, &ps);
@@ -200,10 +210,17 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 //Работа добавленных фунций
 void DoWork1(HWND hWnd)
 {
-    (FUNC_MOD1(hWnd, hInst) == 1);
+    FUNC_MOD1(hWnd, hInst);
+    ClearMainWindow(hWnd);
 }
 
 void DoWork2(HWND hWnd)
 {
+    FUNC_MOD2(hWnd, hInst);
+    ClearMainWindow(hWnd);
+}
 
+void ClearMainWindow(HWND hWnd) {
+    InvalidateRect(hWnd, NULL, TRUE);
+    UpdateWindow(hWnd);
 }
