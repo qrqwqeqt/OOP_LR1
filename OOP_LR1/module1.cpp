@@ -2,6 +2,10 @@
 #include "module1.h"
 #include "resource1.h"
 
+// Определение глобальных переменных
+int g_bShowText = FALSE;
+wchar_t g_szTextToDisplay[256];
+
 
 
 
@@ -18,9 +22,9 @@ static INT_PTR CALLBACK Work1(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
         if (LOWORD(wParam) == IDOK) 
         {
             EndDialog(hDlg, 1);
-            TCHAR text[256];
-            GetDlgItemText(hDlg, IDC_EDIT1, text, sizeof(text) / sizeof(text[0]));
-            MessageBox(hDlg, text, L"Текст из элемента управления", MB_OK | MB_ICONINFORMATION);
+            GetDlgItemText(hDlg, IDC_EDIT1, g_szTextToDisplay, sizeof(g_szTextToDisplay) / sizeof(g_szTextToDisplay[0]));
+            g_bShowText = TRUE; // Устанавливаем флаг для отображения текста в главном окне
+            InvalidateRect(GetParent(hDlg), NULL, TRUE); // Перерисовываем главное окно
             return (INT_PTR)TRUE;
         }
         if (LOWORD(wParam) == IDCANCEL)

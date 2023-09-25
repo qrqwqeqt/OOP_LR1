@@ -8,6 +8,7 @@
 
 #define MAX_LOADSTRING 100
 
+
 // Глобальные переменные:
 HINSTANCE hInst;                                // текущий экземпляр
 WCHAR szTitle[MAX_LOADSTRING];                  // Текст строки заголовка
@@ -159,7 +160,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Добавьте сюда любой код прорисовки, использующий HDC...
+            if (g_bShowText) {
+                TextOut(hdc, 10, 10, g_szTextToDisplay, lstrlen(g_szTextToDisplay));
+                g_bShowText = FALSE; // Сбрасываем флаг после отображения текста
+            }
+
             EndPaint(hWnd, &ps);
         }
         break;
