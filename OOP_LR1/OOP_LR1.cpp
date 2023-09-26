@@ -168,11 +168,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             if (g_bShowText) {
                 FillRect(hdc, &rect, hBrush);
                 TextOut(hdc, 10, 10, g_szTextToDisplay, lstrlen(g_szTextToDisplay));
-                g_bShowText = FALSE;
-                FillRect(hdc, &rect, hBrush);
-                TextOut(hdc, 10, 40, g_selectedValue, lstrlen(g_selectedValue));
-                g_bShowText = FALSE;
-
             }
 
             EndPaint(hWnd, &ps);

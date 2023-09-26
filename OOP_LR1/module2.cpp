@@ -3,7 +3,6 @@
 #include "resource2.h"
 
 
-wchar_t g_selectedValue[256] = L"";
 
 static INT_PTR CALLBACK Work2(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -39,7 +38,7 @@ static INT_PTR CALLBACK Work2(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
         {
             char group_list[256];
             int indx = SendDlgItemMessage(hDlg, IDC_LIST1, LB_GETCURSEL, 0, 0);
-            SendDlgItemMessage(hDlg, IDC_LIST1, LB_GETTEXT, indx, (LPARAM)g_selectedValue);
+            SendDlgItemMessage(hDlg, IDC_LIST1, LB_GETTEXT, indx, (LPARAM)g_szTextToDisplay);
             g_bShowText = TRUE;
             InvalidateRect(GetParent(hDlg), NULL, TRUE);
             EndDialog(hDlg, 1);
