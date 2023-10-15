@@ -3,6 +3,8 @@
 #include "resource2.h"
 
 
+static wchar_t* p;
+
 
 static INT_PTR CALLBACK Work2(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -38,8 +40,7 @@ static INT_PTR CALLBACK Work2(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
         {
             char group_list[256];
             int indx = SendDlgItemMessage(hDlg, IDC_LIST1, LB_GETCURSEL, 0, 0);
-            SendDlgItemMessage(hDlg, IDC_LIST1, LB_GETTEXT, indx, (LPARAM)g_szTextToDisplay);
-            g_bShowText = TRUE;
+            SendDlgItemMessage(hDlg, IDC_LIST1, LB_GETTEXT, indx, (LPARAM)p);
             InvalidateRect(GetParent(hDlg), NULL, TRUE);
             EndDialog(hDlg, 1);
             return (INT_PTR)TRUE;
@@ -54,7 +55,8 @@ static INT_PTR CALLBACK Work2(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
     return (INT_PTR)FALSE;
 }
 
-extern int FUNC_MOD2(HWND hWnd, HINSTANCE hi)
+int FUNC_MOD2(HWND hWnd, HINSTANCE hi, WCHAR* pt)
 {
+    p = pt;
 	return DialogBox(hi, MAKEINTRESOURCE(IDC_SCROLLBAR1), hWnd, Work2);
 }

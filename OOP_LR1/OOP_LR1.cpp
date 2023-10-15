@@ -8,6 +8,7 @@
 
 
 RECT rect;
+
 #define MAX_LOADSTRING 100
 
 
@@ -16,6 +17,7 @@ RECT rect;
 HINSTANCE hInst;                                // текущий экземпляр
 WCHAR szTitle[MAX_LOADSTRING];                  // Текст строки заголовка
 WCHAR szWindowClass[MAX_LOADSTRING];            // имя класса главного окна
+WCHAR text[256] = L"";
 
 // Отправить объявления функций, включенных в этот модуль кода:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -26,8 +28,6 @@ INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 //добавленные функции
 void DoWork1(HWND hWnd);
 void DoWork2(HWND hWnd);
-void ClearMainWindow(HWND hWnd);
-
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -134,45 +134,46 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    static wchar_t result[255]; // Объявление переменной для хранения результата
+
     switch (message)
     {
     case WM_COMMAND:
+    {
+        int wmId = LOWORD(wParam);
+        // Разобрать выбор в меню:
+        switch (wmId)
         {
-            int wmId = LOWORD(wParam);
-            // Разобрать выбор в меню:
-            switch (wmId)
-            {
-            case ID_ACTIONS_WORK1:
-                DoWork1(hWnd);
-                break;
-            case ID_ACTIONS_WORK2:
-                DoWork2(hWnd);
-                break;
-
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
+        case ID_ACTIONS_WORK1:
+        {
+            DoWork1(hWnd);
         }
         break;
+        case ID_ACTIONS_WORK2:
+            DoWork2(hWnd);
+            break;
+
+        case IDM_ABOUT:
+            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+            break;
+        case IDM_EXIT:
+            DestroyWindow(hWnd);
+            break;
+        default:
+            return DefWindowProc(hWnd, message, wParam, lParam);
+        }
+    }
+    break;
     case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            HBRUSH hBrush = CreateSolidBrush(RGB(255, 255, 255));
-            if (g_bShowText) {
-                FillRect(hdc, &rect, hBrush);
-                TextOut(hdc, 10, 10, g_szTextToDisplay, lstrlen(g_szTextToDisplay));
-            }
-
-            EndPaint(hWnd, &ps);
-        }
-        break;
+    {
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hWnd, &ps);
+        HBRUSH hBrush = CreateSolidBrush(RGB(255, 255, 255));
+        FillRect(hdc, &rect, hBrush);
+        TextOut(hdc, 10, 10, text, wcslen(text)); // Вывод результата с помощью TextOut
+        EndPaint(hWnd, &ps);
+    }
+    break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
@@ -181,6 +182,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
     return 0;
 }
+
 
 // Обработчик сообщений для окна "О программе".
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -205,17 +207,12 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 //Работа добавленных фунций
 void DoWork1(HWND hWnd)
 {
-    FUNC_MOD1(hWnd, hInst);
-    ClearMainWindow(hWnd);
+    FUNC_MOD1(hWnd, hInst, text);
+    InvalidateRect(hWnd, NULL, TRUE); // Перерисовка окна
 }
 
 void DoWork2(HWND hWnd)
 {
-    FUNC_MOD2(hWnd, hInst);
-    ClearMainWindow(hWnd);
-}
-
-void ClearMainWindow(HWND hWnd) {
-    InvalidateRect(hWnd, NULL, TRUE);
-    UpdateWindow(hWnd);
+    FUNC_MOD2(hWnd, hInst, text);
+    InvalidateRect(hWnd, NULL, TRUE); // Перерисовка окна
 }

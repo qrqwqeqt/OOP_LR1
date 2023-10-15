@@ -3,11 +3,7 @@
 #include "resource1.h"
 
 
-int g_bShowText = FALSE;
-wchar_t g_szTextToDisplay[256];
-
-
-
+static wchar_t * p;
 
 static INT_PTR CALLBACK Work1(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -19,12 +15,11 @@ static INT_PTR CALLBACK Work1(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
 
     case WM_COMMAND:
 
-        if (LOWORD(wParam) == IDOK) 
+        if (LOWORD(wParam) == IDOK)
         {
             EndDialog(hDlg, 1);
-            GetDlgItemText(hDlg, IDC_EDIT1, g_szTextToDisplay, sizeof(g_szTextToDisplay) / sizeof(g_szTextToDisplay[0]));
-            g_bShowText = TRUE; 
-            InvalidateRect(GetParent(hDlg), NULL, TRUE); 
+            GetDlgItemText(hDlg, IDC_EDIT1, p, 255);
+            InvalidateRect(GetParent(hDlg), NULL, TRUE);
             return (INT_PTR)TRUE;
         }
         if (LOWORD(wParam) == IDCANCEL)
@@ -37,11 +32,8 @@ static INT_PTR CALLBACK Work1(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
     return (INT_PTR)FALSE;
 }
 
-
-
-
-extern int FUNC_MOD1(HWND hWnd, HINSTANCE hi) 
+int FUNC_MOD1(HWND hWnd, HINSTANCE hi, WCHAR* pt)
 {
-	return DialogBox(hi, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, Work1);
+    p = pt;
+    return DialogBox(hi, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, Work1);
 }
-
